@@ -10,27 +10,24 @@ end
 task :default => :test
 
 namespace :test do
-
   desc 'Measures test coverage'
   task :coverage do
     rm_f "coverage"
     rm_f "coverage.data"
-    system 'rcov --aggregate coverage.data --text-summary -Ilib:test test/un/data/*.rb'
-#    system(rcov)
+    system 'rcov --aggregate coverage.data --text-summary -Ilib:test test/unit/un/data/*.rb'
   end
-
 end
 
 begin
   require 'jeweler'
   Jeweler::Tasks.new do |gem|
     gem.version
-    gem.name            = "undata"
-    gem.summary         = %Q{undata - UN Data client library}
-    gem.description     = %Q{The UN have a number of initiatives to make data readily accessible. This library is intended to help in consuming and using that data.}
-    gem.homepage        = "http://github.com/grahambrooks/undata"
-    gem.email           = [ "graham@grahambrooks.com" ]
-    gem.authors         = [ "Graham Brooks"]
+    gem.name        = "undata"
+    gem.summary     = %Q{undata - UN Data client library}
+    gem.description = %Q{The UN have a number of initiatives to make data readily accessible. This library is intended to help in consuming and using that data.}
+    gem.homepage    = "http://github.com/grahambrooks/undata"
+    gem.email       = ["graham@grahambrooks.com"]
+    gem.authors     = ["Graham Brooks"]
     gem.add_development_dependency "mocha", ">= 0"
   end
 rescue LoadError
