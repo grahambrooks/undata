@@ -1,0 +1,6 @@
+coverage.data
+coverage
+pkg
+setup-env
+tmp
+*.gemspec
