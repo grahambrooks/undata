@@ -15,8 +15,8 @@ namespace :test do
   task :coverage do
     rm_f "coverage"
     rm_f "coverage.data"
-    rcov = "rcov --aggregate coverage.data --text-summary -Ilib:test"
-    system("#{rcov} test/**/*.rb")
+    system 'rcov --aggregate coverage.data --text-summary -Ilib:test test/un/data/*.rb'
+#    system(rcov)
   end
 
 end
