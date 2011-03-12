@@ -44,4 +44,13 @@ class TestClient < TestCase
 
     client.data_sets
   end
+
+  test 'client parses response' do
+    mock_parser = mock('response parser')
+    mock_parser.expects(:parse_data_sets).with('some xml')
+    
+    client = UN::Data::Client.new :user_key => 'foo', :host_adpator => stub(:get => "some xml"), :response_parser => mock_parser
+
+    client.data_sets
+  end
 end
