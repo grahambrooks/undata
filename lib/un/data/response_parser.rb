@@ -18,6 +18,14 @@ module UN
       def length
         @data.length
       end
+
+      def to_s
+        result = ""
+        @data.each do |key, value|
+          result << "#{key} = #{value}\n"
+        end
+        result
+      end
     end
       
     class ResponseParser
@@ -47,6 +55,27 @@ module UN
       
       
       def parse_query_results(data)
+        document = REXML::Document.new data
+
+        check_for_errors document
+        
+        result = []
+        
+        document.elements.each("/data/record") do |element|
+          
+          fields ={}
+          
+          element.elements.each do |e|
+            fields[e.attributes['name']] = e.text
+          end
+          
+          result << QueryResult.new(fields)
+        end
+
+        result
+      end
+
+      def parse_filter_query(data)
         document = REXML::Document.new data
 
         check_for_errors document

@@ -38,7 +38,7 @@ class TestClient < TestCase
   test 'client requests appropriate URL' do
     mock_host_adaptor = mock('host adaptor')
       
-    mock_host_adaptor.expects(:get).with(any_parameters) #'http://undata-api.appspot.com/data/index?user_key=foo')
+    mock_host_adaptor.expects(:get).with(any_parameters)
       
     client = UN::Data::Client.new :user_key => 'foo', :host_adpator => mock_host_adaptor
 

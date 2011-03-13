@@ -59,4 +59,26 @@ EOD
       parser.parse_query_results error_data
     end
   end
+
+  test 'handles filtered query results' do
+    query_result = <<EOD
+<data organisation="WHO" 
+      category="Demographic and socioeconomic statistics" 
+      name="Adolescent fertility rate">
+	<record>
+		<field name="Country or Area">Albania</field>
+		<field name="Year(s)">2001</field>
+	<field name="Value">98.7</field>
+	</record>
+</data>
+EOD
+    parser = UN::Data::ResponseParser.new
+
+    data = parser.parse_filter_query query_result
+
+    assert_equal 1, data.length
+    assert_equal 'Albania', data[0]['Country or Area']
+    assert_equal '2001', data[0]['Year(s)']
+    assert_equal '98.7', data[0]['Value']
+  end
 end
