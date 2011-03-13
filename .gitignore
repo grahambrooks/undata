@@ -4,3 +4,5 @@ pkg
 setup-env
 tmp
 *.gemspec
+test/data
+get-test-data

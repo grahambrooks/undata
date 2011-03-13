@@ -24,11 +24,15 @@ module UN
       end
 
       def data_sets
-        uri = URI::HTTP.build :host => HOST_NAME, :path => '/data/index', :query => "user_key=#{@user_key}"
-
-        response = @host_adpator.get(uri.to_s)
+        uri = user_uri :path => '/data/index'
+        
+        response = @host_adpator.get(uri)
 
         @response_parser.parse_data_sets response
+      end
+
+      def user_uri(options = {})
+        URI::HTTP.build :host => HOST_NAME, :path => options[:path], :query => "user_key=#{@user_key}"
       end
     end
   end

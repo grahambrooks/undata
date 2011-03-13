@@ -43,4 +43,20 @@ EOD
     assert_equal '2001', data[0]['Year(s)']
     assert_equal '151', data[0]['Value']
   end
+
+  test "handles error elements as exceptions" do
+    error_data = <<EOD
+<?xml version="1.0" encoding="utf-8"?><error id="user.invalid_key">user_key is invalid</error>
+EOD
+    
+    parser = UN::Data::ResponseParser.new
+    
+    assert_raises RuntimeError do
+      parser.parse_data_sets error_data
+    end
+
+    assert_raises RuntimeError do
+      parser.parse_query_results error_data
+    end
+  end
 end

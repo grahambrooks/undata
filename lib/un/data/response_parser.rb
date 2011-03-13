@@ -23,9 +23,17 @@ module UN
     class ResponseParser
       def initialize(options={})
       end
+
+      def check_for_errors(document)
+        document.elements.each("/error") do |element|
+          raise element.text
+        end
+      end
       
       def parse_data_sets(data)
         document = REXML::Document.new data
+
+        check_for_errors document
         
         result = []
         document.elements.each("/datasets/dataset") do |element|
@@ -40,6 +48,8 @@ module UN
       
       def parse_query_results(data)
         document = REXML::Document.new data
+
+        check_for_errors document
         
         result = []
         
