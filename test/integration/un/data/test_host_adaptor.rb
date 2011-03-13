@@ -1,4 +1,5 @@
 require 'helper'
+require 'un/data/response_parser'
 
 class TestHostAdaptor < TestCase
   test 'get returns response body' do

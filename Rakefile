@@ -15,6 +15,7 @@ namespace :test do
     rm_f "coverage"
     rm_f "coverage.data"
     system 'rcov --aggregate coverage.data --text-summary -Ilib:test test/unit/un/data/*.rb'
+    system 'rcov --aggregate coverage.data --text-summary -Ilib:test test/integration/un/data/*.rb'
   end
 end
 

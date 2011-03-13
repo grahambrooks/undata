@@ -1,4 +1,5 @@
 require 'helper'
+require 'un/data/client'
 
 class TestClient < TestCase
   test "user key read from environment" do
