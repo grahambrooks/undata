@@ -6,3 +6,6 @@ tmp
 *.gemspec
 test/data
 get-test-data
+.idea/.name
+.idea/.rakeTasks
+.idea/workspace.xml
