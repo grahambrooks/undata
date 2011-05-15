@@ -3,20 +3,20 @@ require 'un/data/host_adaptor'
 module UN
   module Data
     UNDATA_USER_KEY_NAME = 'UNDATA_USER_KEY'
-    HOST_NAME = 'undata-api.appspot.com'
-    
+    HOST_NAME            = 'undata-api.appspot.com'
+
     class Client
       def initialize(options = {})
         @host_adpator    = options[:host_adpator] || UN::Data::HostAdaptor.new
         @response_parser = options[:response_parser] || UN::Data::ResponseParser.new
-        
-        read_environment_settings
-        
-        @user_key = options[:user_key] || @user_key || raise("User key (#{@user_key}) not specified")
+
+        configure_user_key(options)
       end
 
-      def read_environment_settings
+      def configure_user_key(options)
         @user_key = ENV[UNDATA_USER_KEY_NAME]
+
+        @user_key = options[:user_key] || @user_key || raise("User key (#{@user_key}) not specified")
       end
 
       def user_key
@@ -25,7 +25,7 @@ module UN
 
       def data_sets
         uri = user_uri :path => '/data/index'
-        
+
         response = @host_adpator.get(uri)
 
         @response_parser.parse_data_sets response
@@ -44,7 +44,7 @@ module UN
         path << URI.escape(parameters[:name], Regexp.new('[^#{URI::PATTERN::UNRESERVED}]')) || raise('Dataset parameter required for general queries')
         path << '/' << URI.escape(parameters[:year]) unless parameters[:year].nil?
         path << '/' << URI.escape(parameters[:country]) unless parameters[:country].nil?
-        
+
         uri = user_uri :path => path
 
         response = @host_adpator.get(uri)

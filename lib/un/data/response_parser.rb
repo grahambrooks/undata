@@ -10,7 +10,7 @@ module UN
           @data[key] = value
         end
       end
-      
+
       def [](key)
         @data[key]
       end
@@ -27,7 +27,7 @@ module UN
         result
       end
     end
-      
+
     class ResponseParser
       def initialize(options={})
       end
@@ -37,38 +37,38 @@ module UN
           raise element.text
         end
       end
-      
+
       def parse_data_sets(data)
         document = REXML::Document.new data
 
         check_for_errors document
-        
+
         result = []
         document.elements.each("/datasets/dataset") do |element|
           result << OpenStruct.new(:organisation => element.attributes['organisation'],
                                    :category => element.attributes['category'],
                                    :name => element.attributes['name'])
         end
-        
+
         result
       end
-      
-      
+
+
       def parse_query_results(data)
         document = REXML::Document.new data
 
         check_for_errors document
-        
+
         result = []
-        
+
         document.elements.each("/data/record") do |element|
-          
+
           fields ={}
-          
+
           element.elements.each do |e|
             fields[e.attributes['name']] = e.text
           end
-          
+
           result << QueryResult.new(fields)
         end
 
@@ -79,17 +79,17 @@ module UN
         document = REXML::Document.new data
 
         check_for_errors document
-        
+
         result = []
-        
+
         document.elements.each("/data/record") do |element|
-          
+
           fields ={}
-          
+
           element.elements.each do |e|
             fields[e.attributes['name']] = e.text
           end
-          
+
           result << QueryResult.new(fields)
         end
 
